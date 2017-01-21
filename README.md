@@ -25,7 +25,7 @@ See the gulpfile for tasks related to building the module.
 
 ## Install
 
-Include this module as a dependency of your application in the `package.json` file. It also requires that MongooseJS is available as a peer dependency. For example:
+Include this module as a dependency of your application in the `package.json` file. For example:
 ```
 {
   ...
