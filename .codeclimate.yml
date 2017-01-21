@@ -9,3 +9,8 @@ engines:
         javascript:
   fixme:
     enabled: true
+ratings:
+  paths:
+  - "src/**/*.js"
+exclude_paths:
+  - "src/**/*.spec.js"
