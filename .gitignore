@@ -1,0 +1,70 @@
+###################
+# Project Specific
+###################
+
+
+###################
+# Editors
+###################
+
+# Eclipse
+.project
+.settings
+.classpath
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Net Beans
+nbactions.xml
+nb-configuration.xml
+
+# VS
+.vscode
+
+# Vi, etc
+*.swp
+*.tmp
+*.bak
+
+# General
+*~
+
+
+###################
+# Build
+###################
+
+# Node
+node_modules/
+*.tgz
+npm-debug.log*
+
+# Logs
+logs
+*.log
+
+# Common
+bin/
+tmp/
+
+# Apple
+*~.nib
+
+
+###################
+# OS
+###################
+
+# MacOS
+.DS_Store
+
+
+###################
+# Tests
+###################
+
+/reports
+/coverage

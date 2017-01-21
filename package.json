@@ -1,0 +1,43 @@
+{
+	"name": "@asymmetrik/node-module-template",
+	"description": "Node Module Template Project",
+	"version": "0.0.0",
+	"author": "Asymmetrik, Ltd.",
+	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",
+	"license": "UNLICENSED",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/asymmetrik/node-module-template.git"
+	},
+	"engines": {
+		"node": "6.9",
+		"npm": "3.3.10"
+	},
+	"scripts": {
+		"test": "gulp test-ci",
+		"dev": "gulp dev",
+		"dev-test": "gulp dev-test"
+	},
+	"dependencies": {
+		"weighted-random-object": "1.0.6"
+	},
+	"peerDependencies": { },
+	"devDependencies": {
+
+		"mocha": "3.1",
+		"mocha-lcov-reporter": "0.0",
+		"should": "11.1",
+
+		"gulp": "3.9",
+		"gulp-coverage": "0.3",
+		"gulp-eslint": "3.0",
+		"gulp-istanbul": "1.1",
+		"gulp-load-plugins": "1.4",
+		"gulp-mocha": "3.0",
+		"gulp-util": "3.0",
+		"gulp-watch": "4.3",
+		"run-sequence": "1.2",
+		"yargs": "6.4"
+
+	}
+}
