@@ -9,11 +9,19 @@
 
 ## Table of Contents
 
+- [Use](#use)
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
 - [Contribute](#contribute)
 - [License](#license)
+
+## Use
+To use this template, clone it, rename the ```origin``` remote to something else like ```template```. Then, add the new repo as origin. Once you've done this, it will be easier to merge in changes to the template into your project.
+
+A second option is to clone this repo, delete the ```./.git``` directory, and then push it to your own repo.
+
+See the gulpfile for tasks related to building the module.
 
 ## Install
 
