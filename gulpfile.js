@@ -7,11 +7,11 @@ let
 	runSequence = require('run-sequence'),
 	plugins = gulpLoadPlugins();
 
-let
-	allSrc  = './src/**/*.js',
-	libSrc  = './src/**/*!(.spec).js',
-	testSrc = './src/**.spec.js';
+let allSrc  = './src/**/*.js';
+let testSrc = './src/**.spec.js';
+let libSrc  = [ allSrc, `!${testSrc}` ];
 let allJs   = [ './gulpfile.js', allSrc ];
+
 
 /**
  * --------------------------
@@ -46,9 +46,7 @@ gulp.task('run-tests', [ 'build' ], () => {
 gulp.task('run-tests-ci', [ 'build-ci', 'coverage-init' ], () => {
 
 	return gulp.src(testSrc)
-		.pipe(plugins.mocha({
-			reporter: 'mocha-lcov-reporter'
-		}))
+		.pipe(plugins.mocha())
 		.pipe(plugins.istanbul.writeReports({
 			reporters: [ 'text-summary', 'lcov' ]
 		}));
