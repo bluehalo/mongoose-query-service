@@ -23,9 +23,7 @@
 		"dev-test": "gulp dev-test"
 	},
 
-	"dependencies": {
-		"weighted-random-object": "1.0.6"
-	},
+	"dependencies": { },
 	"peerDependencies": { },
 	"devDependencies": {
 
