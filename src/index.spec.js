@@ -3,7 +3,8 @@
 const mongoose = require('mongoose'),
 	should = require('should'),
 
-	plugins = require('./plugins'),
+	thisModule = require('../index'),
+	plugins = thisModule.plugins,
 
 	mongoDbTestConnectionString = 'mongodb://localhost/mongoose-query-service-test';
 
@@ -24,12 +25,22 @@ after(() => {
 	});
 });
 
-describe('Dependency Inclusion', () => {
+describe('Plugin Dependency Inclusion', () => {
 	it('should have plugins', () => {
+		should.exist(plugins);
+	});
+
+	it('should have specific plugins', () => {
 		['pageable', 'gettable'].forEach((pluginName) => {
 			const plugin = plugins[pluginName];
 			should.exist(plugin);
 			should(plugin).be.a.Function();
 		});
+	});
+});
+
+describe('Service Dependency Inclusion', () => {
+	it('should have request to query converter', () => {
+		should.exist(thisModule.buildQuery);
 	});
 });

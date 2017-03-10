@@ -1,7 +1,9 @@
 'use strict';
 
-const plugins = require('./src/plugins');
+const plugins = require('./src/plugins'),
+	buildQuery = require('./src/build-query');
 
 module.exports = {
-	plugins: plugins
+	plugins: plugins,
+	buildQuery: buildQuery
 };
