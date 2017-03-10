@@ -1,11 +1,11 @@
-# @asymmetrik/node-module-template
+# @asymmetrik/mongoose-query-service
 
-[![Build Status](https://travis-ci.org/Asymmetrik/node-module-template.svg)](https://travis-ci.org/Asymmetrik/node-module-template)
-[![Code Climate](https://codeclimate.com/github/Asymmetrik/node-module-template/badges/gpa.svg)](https://codeclimate.com/github/Asymmetrik/node-module-template)
-[![Test Coverage](https://codeclimate.com/github/Asymmetrik/node-module-template/badges/coverage.svg)](https://codeclimate.com/github/Asymmetrik/node-module-template/coverage)
+[![Build Status](https://travis-ci.org/Asymmetrik/mongoose-query-service.svg)](https://travis-ci.org/Asymmetrik/mongoose-query-service)
+[![Code Climate](https://codeclimate.com/github/Asymmetrik/mongoose-query-service/badges/gpa.svg)](https://codeclimate.com/github/Asymmetrik/mongoose-query-service)
+[![Test Coverage](https://codeclimate.com/github/Asymmetrik/mongoose-query-service/badges/coverage.svg)](https://codeclimate.com/github/Asymmetrik/mongoose-query-service/coverage)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> Template project for a node module
+> NPM module to provide shareable services and plugins for Mongoose models
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ Include this module as a dependency of your application in the `package.json` fi
 {
   ...
   dependencies: {
-    "@asymmetrik/node-module-template": "latest"
+    "@asymmetrik/mongoose-query-service": "latest"
   }
   ...
 }
@@ -40,7 +40,7 @@ Include this module as a dependency of your application in the `package.json` fi
 
 Include the module via `require` wherever applicable:
 ```
-var nodeModuleTemplate = require('@asymmetrik/node-module-template');
+var mongooseQueryService = require('@asymmetrik/mongoose-query-service');
 ```
 
 ## API

@@ -1,3 +1,7 @@
 'use strict';
 
-module.exports = require('./src/example.js');
+const plugins = require('./src/plugins');
+
+module.exports = {
+	plugins: plugins
+};

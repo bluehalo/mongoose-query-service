@@ -1,15 +1,15 @@
 {
-	"name": "@asymmetrik/node-module-template",
-	"description": "Node Module Template Project",
+	"name": "@asymmetrik/mongoose-query-service",
+	"description": "NPM module to provide shareable services and plugins for Mongoose models",
 	"version": "0.1.0",
 
 	"author": "Asymmetrik, Ltd.",
 	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",
-	"license": "UNLICENSED",
+	"license": "MIT",
 
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/asymmetrik/node-module-template.git"
+		"url": "https://github.com/asymmetrik/mongoose-query-service.git"
 	},
 
 	"engines": {
@@ -23,9 +23,17 @@
 		"dev-test": "gulp dev-test"
 	},
 
-	"dependencies": { },
-	"peerDependencies": { },
+	"dependencies": {
+		"lodash": "4.17"
+	},
+
+	"peerDependencies": {
+		"mongoose": "4.x"
+	},
+
 	"devDependencies": {
+
+		"mongoose": "4.x",
 
 		"mocha": "3.2",
 		"should": "11.1",

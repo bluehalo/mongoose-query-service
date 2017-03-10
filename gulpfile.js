@@ -8,7 +8,7 @@ let
 	plugins = gulpLoadPlugins();
 
 let allSrc  = './src/**/*.js';
-let testSrc = './src/**.spec.js';
+let testSrc = './src/**/*.spec.js';
 let libSrc  = [ allSrc, `!${testSrc}` ];
 let allJs   = [ './gulpfile.js', allSrc ];
 
