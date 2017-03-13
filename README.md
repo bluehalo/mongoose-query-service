@@ -101,6 +101,18 @@ Person.plugin(mongooseQuerySchema.plugins.gettable);
 
 ### Services
 
+#### buildQuery(query, pagingParameters)
+
+Converts input query and paging parameters into a pageable query object to be used with the `pageable` plugin's `pagingSearch` function.
+
+Returns a promise resolved with the resulting search config object with the attributes:
+Attribute | Type | Description
+------------ | ------------- | ------------ | -------------
+query | Boolean | Indicates if more documents are available if the next page of results is queried
+sorting | Object | If a `sort` attribute of `pagingParameters` is set, builds a sorting object with a direction set by the `dir` attribute (defaulting to -1 for descending, or set by 'DESC' or 'ASC').
+page | Number | Set by the input `page` attribute of `pagingParameters` passed into the `getPage` method
+limit | Number | Set by the input `size` attribute of `pagingParameters` passed into the `getLimit` method
+
 #### validateNonEmpty
 Returns true of the input value is not empty (using the lodash *isEmpty* function)
 
