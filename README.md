@@ -101,7 +101,59 @@ Person.plugin(mongooseQuerySchema.plugins.gettable);
 
 ### Services
 
-Documentation for the available services is coming soon! Submit a PR?
+#### buildQuery(query, pagingParameters)
+
+Converts input query and paging parameters into a pageable query object to be used with the `pageable` plugin's `pagingSearch` function.
+
+Returns a promise resolved with the resulting search config object with the attributes:
+Attribute | Type | Description
+------------ | ------------- | ------------ | -------------
+query | Boolean | Indicates if more documents are available if the next page of results is queried
+sorting | Object | If a `sort` attribute of `pagingParameters` is set, builds a sorting object with a direction set by the `dir` attribute (defaulting to -1 for descending, or set by 'DESC' or 'ASC').
+page | Number | Set by the input `page` attribute of `pagingParameters` passed into the `getPage` method
+limit | Number | Set by the input `size` attribute of `pagingParameters` passed into the `getLimit` method
+
+#### validateNonEmpty
+Returns true of the input value is not empty (using the lodash *isEmpty* function)
+
+#### parseDate
+Parse an input as a date. Handles various types of inputs, such as Strings, Date objects, and Numbers.
+
+@param {date} The input representing a date / timestamp
+
+@returns The timestamp in milliseconds since the Unix epoch
+
+#### getLimit
+Get the limit provided by the input query parameters, if there is one. Limit is taken from the `size` attribute of the input `queryParams` object. Limit has to be at least 1 with a default value of 20 and no more than the max value.
+
+@param queryParams
+
+@param maxSize (optional) default: 100
+
+@returns {number}
+
+#### getPage
+Page needs to be positive and has no upper bound. Taken from the `page` attribute of the input `queryParams` object. Defaults to 0.
+
+@param queryParams
+
+@returns {number}
+
+#### contains
+Determine if an array contains a given element by doing a deep comparison.
+
+@param arr
+
+@param element
+
+@returns {boolean} True if the array contains the given element, false otherwise.
+
+#### toMongoose
+Converts an input Mongo query, possibly with $date and $obj attributes, to a query that Mongoose supports with Date and ObjectId objects mapped from those inputs as appropriate.
+
+@param obj
+
+@returns {object}
 
 ## Contribute
 
