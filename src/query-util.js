@@ -7,6 +7,9 @@ const notEmpty = (input) => {
 	return !_.isEmpty(input);
 };
 
+/**
+ * Returns true of the input value is not empty (using the lodash _.isEmpty function)
+ */
 module.exports.validateNonEmpty = notEmpty;
 
 /**
@@ -16,7 +19,7 @@ module.exports.validateNonEmpty = notEmpty;
  * @param {date} The input representing a date / timestamp
  * @returns The timestamp in milliseconds since the Unix epoch
  */
-module.exports.dateParse = function (date) {
+module.exports.parseDate = function (date) {
 
 	// Handle nil values by simply returning null
 	if (_.isNil(date)) {
@@ -95,6 +98,12 @@ const propToMongoose = (prop, nonMongoFunction) => {
 	return nonMongoFunction(prop);
 };
 
+/**
+ * Converts an input Mongo query, possibly with $date and $obj attributes, to a query that
+ * Mongoose supports with Date and ObjectId objects mapped from those inputs as appropriate.
+ * @param obj
+ * @returns {object}
+ */
 const toMongoose = (obj) => {
 	if (null != obj) {
 		if (typeof obj === 'object') {
