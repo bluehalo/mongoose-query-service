@@ -72,7 +72,7 @@ describe('query-util', () => {
 
 	});
 
-	describe('#dateParse', () => {
+	describe('#parseDate', () => {
 
 		[{
 			input: '2017-01-01T12:34:56.789Z',
@@ -100,7 +100,7 @@ describe('query-util', () => {
 			name: 'should handle null inputs'
 		}].forEach((test) => {
 			it(test.name, () => {
-				const actual = queryUtil.dateParse(test.input);
+				const actual = queryUtil.parseDate(test.input);
 				should(actual).equal(test.expected);
 			});
 		});
