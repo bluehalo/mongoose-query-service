@@ -101,7 +101,47 @@ Person.plugin(mongooseQuerySchema.plugins.gettable);
 
 ### Services
 
-Documentation for the available services is coming soon! Submit a PR?
+#### validateNonEmpty
+Returns true of the input value is not empty (using the lodash *isEmpty* function)
+
+#### parseDate
+Parse an input as a date. Handles various types of inputs, such as Strings, Date objects, and Numbers.
+
+@param {date} The input representing a date / timestamp
+
+@returns The timestamp in milliseconds since the Unix epoch
+
+#### getLimit
+Get the limit provided by the input query parameters, if there is one. Limit is taken from the `size` attribute of the input `queryParams` object. Limit has to be at least 1 with a default value of 20 and no more than the max value.
+
+@param queryParams
+
+@param maxSize (optional) default: 100
+
+@returns {number}
+
+#### getPage
+Page needs to be positive and has no upper bound. Taken from the `page` attribute of the input `queryParams` object. Defaults to 0.
+
+@param queryParams
+
+@returns {number}
+
+#### contains
+Determine if an array contains a given element by doing a deep comparison.
+
+@param arr
+
+@param element
+
+@returns {boolean} True if the array contains the given element, false otherwise.
+
+#### toMongoose
+Converts an input Mongo query, possibly with $date and $obj attributes, to a query that Mongoose supports with Date and ObjectId objects mapped from those inputs as appropriate.
+
+@param obj
+
+@returns {object}
 
 ## Contribute
 
