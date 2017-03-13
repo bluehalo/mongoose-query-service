@@ -3,17 +3,11 @@
 const _ = require('lodash'),
 	mongoose = require('mongoose');
 
-module.exports.validateNonEmpty = function (property) {
-	return (null != property && property.length > 0);
+const notEmpty = (input) => {
+	return !_.isEmpty(input);
 };
 
-module.exports.validateArray = function (arr) {
-	return (null != arr && arr.length > 0);
-};
-
-module.exports.toLowerCase = function (v){
-	return (null != v)? v.toLowerCase(): undefined;
-};
+module.exports.validateNonEmpty = notEmpty;
 
 /**
  * Parse an input as a date. Handles various types
@@ -83,18 +77,22 @@ module.exports.contains = function(arr, element) {
 	return false;
 };
 
+/**
+ * Private method that guarantees that the nonMongoFunction input
+ * is a valid input
+ */
 const propToMongoose = (prop, nonMongoFunction) => {
+	if(_.isNil(prop)) {
+		return null;
+	}
+
 	if (typeof prop === 'object' && prop.$date != null && typeof prop.$date === 'string') {
 		return new Date(prop.$date);
 	} else if (typeof prop === 'object' && prop.$obj != null && typeof prop.$obj === 'string') {
 		return mongoose.Types.ObjectId(prop.$obj);
 	}
 
-	if (null != nonMongoFunction) {
-		return nonMongoFunction(prop);
-	}
-
-	return null;
+	return nonMongoFunction(prop);
 };
 
 const toMongoose = (obj) => {

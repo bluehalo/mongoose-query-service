@@ -5,7 +5,38 @@ const should = require('should'),
 
 describe('query-util', () => {
 
+	describe('#validateNotEmpty', () => {
+		[{
+			name: 'should be true for an array with items',
+			input: ['test'],
+			expected: true
+		}, {
+			name: 'should be false for an empty array',
+			input: [],
+			expected: false
+		}, {
+			name: 'should be false for a null input',
+			input: null,
+			expected: false
+		}].forEach((test) => {
+			it(test.name, () => {
+				const actual = queryUtil.validateNonEmpty(test.input);
+				should(actual).eql(test.expected);
+			});
+		});
+	});
+
 	describe('#toMongoose', () => {
+
+		it('should return null for null inputs', () => {
+			const actual = queryUtil.toMongoose(null);
+			should(actual).eql(null);
+		});
+
+		it('should handle null object attributes', () => {
+			const actual = queryUtil.toMongoose({ test: null });
+			should(actual).eql({ test: null });
+		});
 
 		it('should convert $date : {""} to new Date("")', () => {
 			var input = {hello: {there: 'you are', when: [{},{something:0},{$date:'2015-01-01T00:00:00.000Z'}]}, date: {$date:'2015-07-01T00:00:00.000Z'}};
