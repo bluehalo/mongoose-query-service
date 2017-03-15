@@ -1,7 +1,7 @@
 {
 	"name": "@asymmetrik/mongoose-query-service",
 	"description": "NPM module to provide shareable services and plugins for Mongoose models",
-	"version": "0.1.0",
+	"version": "0.1.1",
 
 	"author": "Asymmetrik, Ltd.",
 	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",

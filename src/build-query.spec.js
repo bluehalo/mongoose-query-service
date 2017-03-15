@@ -11,6 +11,15 @@ describe('Build Query', () => {
 		};
 	};
 
+	it('should handle null inputs with default', () => {
+		return buildQuery({}, {}).then(verifyEquals({
+			limit: 20,
+			page: 0,
+			query: {},
+			sorting: {}
+		}));
+	});
+
 	it('should handle empty inputs with default', () => {
 		return buildQuery({}, {}).then(verifyEquals({
 			limit: 20,
