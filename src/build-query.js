@@ -40,7 +40,7 @@ module.exports = (query, pagingParams) => {
 		const sorting = getSorting(pagingParams);
 
 		resolve({
-			query: query,
+			query: _.defaultTo(query, {}),
 			sorting: sorting,
 			page: page,
 			limit: limit
