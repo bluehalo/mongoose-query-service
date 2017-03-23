@@ -18,7 +18,8 @@ describe('pageable plugin', () => {
 	 */
 	before(() => {
 		const TestObjectSchema = new Schema({
-			content: { type: String }
+			content: { type: String },
+			parent: { type: Schema.Types.ObjectId, ref: 'TestObject' }
 		});
 		TestObjectSchema.plugin(pageable);
 		TestObjectSchema.index({ content: 'text' });
@@ -32,13 +33,21 @@ describe('pageable plugin', () => {
 
 	const uniqueSearchTerm = 'basement';
 
-	const specs = [{
-		content: 'How many chucks would a woodchuck chuck if a woodchuck could chuck wood?'
-	}, {
-		content: 'Johnny\'s in the ' + uniqueSearchTerm + ' mixing up the medicine'
-	}, {
-		content: 'How many roads must a man walk down before you can call him a man?'
-	}];
+	const specs = {
+		parent: {
+			content: 'These times they are a changing'
+		},
+		children: [{
+			content: 'How many chucks would a woodchuck chuck if a woodchuck could chuck wood?'
+		}, {
+			content: 'Johnny\'s in the ' + uniqueSearchTerm + ' mixing up the medicine'
+		}, {
+			content: 'How many roads must a man walk down before you can call him a man?'
+		}]
+	};
+
+	// Populated in the first test
+	let parentModel;
 
 	const verifyCount = (expectedCount) => {
 		return TestObject.count().then((count) => {
@@ -50,12 +59,21 @@ describe('pageable plugin', () => {
 		return verifyCount(0);
 	});
 
-	it('should add and count 3 test objects', () => {
-		return Promise.all(_.map(specs, (spec) => {
-			return new TestObject(spec).save();
-		})).then(() => {
-			return verifyCount(3);
-		});
+	it('should create a parent test object without parents', () => {
+		return new TestObject(specs.parent).save()
+			.then((result) => {
+				parentModel = result;
+			}).then(() => {
+				return verifyCount(1);
+			});
+	});
+
+	it('should add and count 3 test objects with the same parent', () => {
+		return Promise.all(_.map(specs.children, (spec) => {
+			const obj = new TestObject(spec);
+			obj.parent = parentModel;
+			return obj.save();
+		})).then(() => verifyCount(4));
 	});
 
 	it('should use pageable plugin to return paged list', () => {
@@ -66,8 +84,27 @@ describe('pageable plugin', () => {
 			limit: 2
 		}).then((results) => {
 				should.exist(results);
-				should(results.totalSize).eql(3);
+				should(results.hasMore).eql(true);
+				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
+				should(results.pageSize).eql(2);
+				should(results.totalPages).eql(2);
+				should(results.elements).be.a.Array();
+				should(results.elements).have.length(2);
+			});
+	});
+
+	it('should use pageable plugin to return last page of list', () => {
+		return TestObject.pagingSearch({
+			query: {},
+			sorting: [],
+			page: 1,
+			limit: 2
+		}).then((results) => {
+				should.exist(results);
+				should(results.hasMore).eql(false);
+				should(results.totalSize).eql(4);
+				should(results.pageNumber).eql(1);
 				should(results.pageSize).eql(2);
 				should(results.totalPages).eql(2);
 				should(results.elements).be.a.Array();
@@ -80,12 +117,13 @@ describe('pageable plugin', () => {
 			searchTerms: uniqueSearchTerm
 		}).then((results) => {
 				should.exist(results);
+				should(results.hasMore).eql(false);
 				should(results.totalSize).eql(1);
 				should(results.pageNumber).eql(0);
 				should(results.pageSize).eql(1);
 				should(results.elements).be.a.Array();
 				should(results.elements).have.length(1);
-				should(results.elements[0].content).eql(specs[1].content);
+				should(results.elements[0].content).eql(specs.children[1].content);
 			});
 	});
 
@@ -99,33 +137,42 @@ describe('pageable plugin', () => {
 		}).then((results) => {
 				should.exist(results);
 				should(results.hasMore).eql(false);
-				should(results.totalSize).eql(3);
+				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
-				should(results.pageSize).eql(3);
+				should(results.pageSize).eql(4);
 				should(results.elements).be.a.Array();
-				should(results.elements).have.length(3);
-				should(results.elements[0].content).eql(specs[1].content);
-				should(results.elements[1].content).eql(specs[2].content);
-				should(results.elements[2].content).eql(specs[0].content);
+				should(results.elements).have.length(4);
+				should(results.elements[0].content).eql(specs.parent.content);
+				should(results.elements[1].content).eql(specs.children[1].content);
+				should(results.elements[2].content).eql(specs.children[2].content);
+				should(results.elements[3].content).eql(specs.children[0].content);
 			});
 	});
 
-	it('should accept and use ASC sort parameters', () => {
+	it('should accept and use ASC sort parameters with population', () => {
 		return TestObject.pagingSearch({
 			sorting: [
 				{ property: 'content', direction: 'ASC' }
-			]
+			],
+			populate: 'parent'
 		}).then((results) => {
 				should.exist(results);
 				should(results.hasMore).eql(false);
-				should(results.totalSize).eql(3);
+				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
-				should(results.pageSize).eql(3);
+				should(results.pageSize).eql(4);
 				should(results.elements).be.a.Array();
-				should(results.elements).have.length(3);
-				should(results.elements[0].content).eql(specs[0].content);
-				should(results.elements[1].content).eql(specs[2].content);
-				should(results.elements[2].content).eql(specs[1].content);
+				should(results.elements).have.length(4);
+				should(results.elements[0].content).eql(specs.children[0].content);
+				should(results.elements[1].content).eql(specs.children[2].content);
+				should(results.elements[2].content).eql(specs.children[1].content);
+				should(results.elements[3].content).eql(specs.parent.content);
+
+				// Ensure that all children elements have the parent populated
+				_.forEach([0, 1, 2], (childIndex) => {
+					should.exist(results.elements[childIndex].parent);
+					should(results.elements[childIndex].parent.content).eql(specs.parent.content);
+				});
 			});
 	});
 
@@ -133,7 +180,7 @@ describe('pageable plugin', () => {
 		return TestObject.pagingSearch({ maxScan: 2 }).then((results) => {
 			should.exist(results);
 			should(results.hasMore).eql(true);
-			should(results.totalSize).eql(3); // count hits all
+			should(results.totalSize).eql(4); // count hits all
 			should(results.pageNumber).eql(0);
 			should(results.pageSize).eql(2);
 			should(results.elements).be.a.Array();
