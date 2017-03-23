@@ -31,7 +31,7 @@ module.exports.parseDate = function (date) {
 		return date.getTime();
 	}
 
-	// A number that exists will be interpretted as millisecond
+	// A number that exists will be interpreted as millisecond
 	if (_.isFinite(date)) {
 		return date;
 	}

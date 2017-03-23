@@ -94,12 +94,13 @@ const pageable = (schema) => {
 
 		return Promise.all([ countPromise, searchPromise ])
 			.then((results) => {
+				const pageSize = limit ? limit : results[1].length;
 				return {
-					hasMore: results[0] > results[1].length,
+					hasMore: results[0] > (page + 1) * pageSize,
 					totalSize: results[0],
 					pageNumber: page,
-					pageSize: limit,
-					totalPages: Math.ceil(results[0] / limit),
+					pageSize: pageSize,
+					totalPages: Math.ceil(results[0] / pageSize),
 					elements: results[1]
 				};
 			});

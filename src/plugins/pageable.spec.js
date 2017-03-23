@@ -84,8 +84,27 @@ describe('pageable plugin', () => {
 			limit: 2
 		}).then((results) => {
 				should.exist(results);
+				should(results.hasMore).eql(true);
 				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
+				should(results.pageSize).eql(2);
+				should(results.totalPages).eql(2);
+				should(results.elements).be.a.Array();
+				should(results.elements).have.length(2);
+			});
+	});
+
+	it('should use pageable plugin to return last page of list', () => {
+		return TestObject.pagingSearch({
+			query: {},
+			sorting: [],
+			page: 1,
+			limit: 2
+		}).then((results) => {
+				should.exist(results);
+				should(results.hasMore).eql(false);
+				should(results.totalSize).eql(4);
+				should(results.pageNumber).eql(1);
 				should(results.pageSize).eql(2);
 				should(results.totalPages).eql(2);
 				should(results.elements).be.a.Array();
@@ -98,8 +117,10 @@ describe('pageable plugin', () => {
 			searchTerms: uniqueSearchTerm
 		}).then((results) => {
 				should.exist(results);
+				should(results.hasMore).eql(false);
 				should(results.totalSize).eql(1);
 				should(results.pageNumber).eql(0);
+				should(results.pageSize).eql(1);
 				should(results.elements).be.a.Array();
 				should(results.elements).have.length(1);
 				should(results.elements[0].content).eql(specs.children[1].content);
@@ -115,8 +136,10 @@ describe('pageable plugin', () => {
 			]
 		}).then((results) => {
 				should.exist(results);
+				should(results.hasMore).eql(false);
 				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
+				should(results.pageSize).eql(4);
 				should(results.elements).be.a.Array();
 				should(results.elements).have.length(4);
 				should(results.elements[0].content).eql(specs.parent.content);
@@ -134,8 +157,10 @@ describe('pageable plugin', () => {
 			populate: 'parent'
 		}).then((results) => {
 				should.exist(results);
+				should(results.hasMore).eql(false);
 				should(results.totalSize).eql(4);
 				should(results.pageNumber).eql(0);
+				should(results.pageSize).eql(4);
 				should(results.elements).be.a.Array();
 				should(results.elements).have.length(4);
 				should(results.elements[0].content).eql(specs.children[0].content);
@@ -154,8 +179,10 @@ describe('pageable plugin', () => {
 	it('should use maxScan to limit queries', () => {
 		return TestObject.pagingSearch({ maxScan: 2 }).then((results) => {
 			should.exist(results);
+			should(results.hasMore).eql(true);
 			should(results.totalSize).eql(4); // count hits all
 			should(results.pageNumber).eql(0);
+			should(results.pageSize).eql(2);
 			should(results.elements).be.a.Array();
 			should(results.elements).have.length(2); // but length is limited
 		});
