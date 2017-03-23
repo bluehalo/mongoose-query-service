@@ -37,6 +37,7 @@ const generateSort = (sorting) => {
  * Options are:
  * - query (default: {})
  * - projection (default: {})
+ * - populate (optional)
  * - options (default: {})
  * - searchTerms (optional)
  * - sorting (default: {})
@@ -55,6 +56,7 @@ const pageable = (schema) => {
 		const query = _.get(searchConfig, 'query', {}),
 			projection = _.get(searchConfig, 'projection', {}),
 			options = _.get(searchConfig, 'options', {}),
+			populate = _.get(searchConfig, 'populate', null),
 			searchTerms = _.get(searchConfig, 'searchTerms', null),
 			sortParams = _.get(searchConfig, 'sorting', {}),
 			page = _.get(searchConfig, 'page', 0),
@@ -84,6 +86,10 @@ const pageable = (schema) => {
 
 		if (maxScan) {
 			searchPromise = searchPromise.maxscan(maxScan);
+		}
+
+		if (populate) {
+			searchPromise = searchPromise.populate(populate);
 		}
 
 		return Promise.all([ countPromise, searchPromise ])
