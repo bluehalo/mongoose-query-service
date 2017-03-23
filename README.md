@@ -67,6 +67,7 @@ query | Yes | `{}` | Filters to pass to the Mongo query
 projection | Yes | `{}` | Attributes to return in the elements
 options | Yes | `{}` | Query options specified by Mongoose
 searchTerms | Yes | null | String of search terms that will be translated into a search on the text index for the model
+populate | Yes | null | Populate options specified by Mongoose
 sorting | Yes | {} | Attributes for sorting and directions of each sort. Defaults to descending sort. Accepts either an object with a standard Mongo sorting config or an array of objects with `property` and `direction` attributes that will be translated into the standard Mongo sorting config.
 page | Yes | 0 | To support paged searches, combines with `limit` to set the `skip` attribute of the Mongo query. If `limit` is not provided, `page` is not used.
 limit | Yes | null | If provided, returns up to this number of results. Combines with the `page` parameter when setting the `skip` attribute of the Mongo query
@@ -75,11 +76,11 @@ maxScan | Yes | null | If provided, the results aspect of the query will only sc
 The `pagingSearch` method returns a Promise resolved with an object with the following attributes:
 
 Attribute | Type | Description
------------- | ------------- | ------------ | -------------
-hasMore | Boolean | Indicates if more documents are available if the next page of results is queried
+------------ | ------------- | ------------
+hasMore | Boolean | Indicates if more documents are available if the next page of results is queried, or if more documents are available than the maxScan setting allowed
 totalSize | Number | The total count of documents that passed the query filter
 pageNumber | Number | The current page of results returned. `0` if not paging
-pageSize | Number | The current size of each page returned. Set to the input `limit` value
+pageSize | Number | The current size of each page returned. Set to the input `limit` value (if provided) or the actual size
 totalPages | Number | The number of pages from the the total size and page size configuration
 elements | Array | The results that were found matching the current page.
 
