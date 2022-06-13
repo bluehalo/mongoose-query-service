@@ -7,7 +7,7 @@ const
 
 	should = require('should'),
 
-	pageable = require('./pageable');
+	pageable = require('../src/plugins/pageable');
 
 describe('pageable plugin', () => {
 
@@ -25,6 +25,8 @@ describe('pageable plugin', () => {
 		TestObjectSchema.index({ content: 'text' });
 		mongoose.model('TestObject', TestObjectSchema, 'testobjects');
 		TestObject = mongoose.model('TestObject', 'testobjects');
+		// wait for the TestObject model to be fully initialized before performing the tests
+		return TestObject.init();
 	});
 
 	after(() => {
@@ -174,18 +176,6 @@ describe('pageable plugin', () => {
 					should(results.elements[childIndex].parent.content).eql(specs.parent.content);
 				});
 			});
-	});
-
-	it('should use maxScan to limit queries', () => {
-		return TestObject.pagingSearch({ maxScan: 2 }).then((results) => {
-			should.exist(results);
-			should(results.hasMore).eql(true);
-			should(results.totalSize).eql(4); // count hits all
-			should(results.pageNumber).eql(0);
-			should(results.pageSize).eql(2);
-			should(results.elements).be.a.Array();
-			should(results.elements).have.length(2); // but length is limited
-		});
 	});
 
 });

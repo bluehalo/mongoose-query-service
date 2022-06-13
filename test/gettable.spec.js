@@ -6,7 +6,7 @@ const
 
 	should = require('should'),
 
-	gettable = require('./gettable');
+	gettable = require('../src/plugins/gettable');
 
 describe('gettable plugin', () => {
 

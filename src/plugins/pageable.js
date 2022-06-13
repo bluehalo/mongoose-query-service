@@ -43,7 +43,6 @@ const generateSort = (sorting) => {
  * - sorting (default: {})
  * - page (default: 0)
  * - limit (optional)
- * - maxScan (optional)
  */
 const pageable = (schema) => {
 
@@ -60,8 +59,7 @@ const pageable = (schema) => {
 			searchTerms = _.get(searchConfig, 'searchTerms', null),
 			sortParams = _.get(searchConfig, 'sorting', {}),
 			page = _.get(searchConfig, 'page', 0),
-			limit = _.get(searchConfig, 'limit', null),
-			maxScan = _.get(searchConfig, 'maxScan', null);
+			limit = _.get(searchConfig, 'limit', null);
 
 		const sort = generateSort(sortParams);
 
@@ -77,15 +75,13 @@ const pageable = (schema) => {
 			sort.score = { $meta: 'textScore' };
 		}
 
+		console.log(`Options: ${JSON.stringify(options)}`);
+
 		let countPromise = this.count(query),
 			searchPromise = this.find(query, projection, options).sort(sort);
 
 		if (limit) {
 			searchPromise = searchPromise.skip(page * limit).limit(limit);
-		}
-
-		if (maxScan) {
-			searchPromise = searchPromise.maxscan(maxScan);
 		}
 
 		if (populate) {

@@ -1,7 +1,7 @@
 'use strict';
 
 const should = require('should'),
-	queryUtil = require('./query-util');
+	queryUtil = require('../src/query-util');
 
 describe('query-util', () => {
 

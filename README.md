@@ -71,13 +71,12 @@ populate | Yes | null | Populate options specified by Mongoose
 sorting | Yes | {} | Attributes for sorting and directions of each sort. Defaults to descending sort. Accepts either an object with a standard Mongo sorting config or an array of objects with `property` and `direction` attributes that will be translated into the standard Mongo sorting config.
 page | Yes | 0 | To support paged searches, combines with `limit` to set the `skip` attribute of the Mongo query. If `limit` is not provided, `page` is not used.
 limit | Yes | null | If provided, returns up to this number of results. Combines with the `page` parameter when setting the `skip` attribute of the Mongo query
-maxScan | Yes | null | If provided, the results aspect of the query will only scan up to this number of documents in Mongo. However, it will not be used in the total count aspect of the query since this is not supported by Mongoose.
 
 The `pagingSearch` method returns a Promise resolved with an object with the following attributes:
 
 Attribute | Type | Description
 ------------ | ------------- | ------------
-hasMore | Boolean | Indicates if more documents are available if the next page of results is queried, or if more documents are available than the maxScan setting allowed
+hasMore | Boolean | Indicates if more documents are available if the next page of results is queried
 totalSize | Number | The total count of documents that passed the query filter
 pageNumber | Number | The current page of results returned. `0` if not paging
 pageSize | Number | The current size of each page returned. Set to the input `limit` value (if provided) or the actual size

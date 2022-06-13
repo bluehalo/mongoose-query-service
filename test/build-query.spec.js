@@ -1,7 +1,7 @@
 'use strict';
 
 const should = require('should'),
-	buildQuery = require('./build-query');
+	buildQuery = require('../src/build-query');
 
 describe('Build Query', () => {
 
