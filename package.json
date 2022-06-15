@@ -1,41 +1,45 @@
 {
-	"name": "@asymmetrik/mongoose-query-service",
-	"description": "NPM module to provide shareable services and plugins for Mongoose models",
-	"version": "1.0.0",
-
-	"author": "Asymmetrik, Ltd.",
-	"copyright": "Copyright Asymmetrik, Ltd. 2007-2022 - All Rights Reserved.",
-	"license": "MIT",
-
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/asymmetrik/mongoose-query-service.git"
-	},
-
-	"engines": {
-		"node": "16",
-		"npm": "8"
-	},
-
-	"scripts": {
-		"lint": "eslint --fix",
-		"test": "nyc --reporter=cobertura --reporter=lcov --reporter=text-summary mocha"
-	},
-
-	"dependencies": {
-		"lodash": "4.17"
-	},
-
-	"peerDependencies": {
-		"mongoose": "5.x"
-	},
-
-	"devDependencies": {
-		"eslint": "8.17.0",
-		"mongoose": "5.x",
-		"mocha": "10.0.0",
-		"nyc": "15.1.0",
-		"should": "13.2.3",
-		"yargs": "17.5.1"
-	}
+  "name": "@asymmetrik/mongoose-query-service",
+  "description": "NPM module to provide shareable services and plugins for Mongoose models",
+  "version": "1.0.0",
+  "author": "Asymmetrik, Ltd.",
+  "copyright": "Copyright Asymmetrik, Ltd. 2007-2022 - All Rights Reserved.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asymmetrik/mongoose-query-service.git"
+  },
+  "engines": {
+    "node": "16",
+    "npm": "8"
+  },
+  "scripts": {
+    "lint": "eslint --fix",
+    "test": "nyc --reporter=cobertura --reporter=lcov --reporter=text-summary mocha"
+  },
+  "dependencies": {
+    "lodash": "4.17"
+  },
+  "peerDependencies": {
+    "mongoose": "5.x"
+  },
+  "devDependencies": {
+    "eslint": "8.17.0",
+    "mongoose": "5.x",
+    "mocha": "10.0.0",
+    "nyc": "15.1.0",
+    "should": "13.2.3",
+    "yargs": "17.5.1"
+  },
+  "bugs": {
+    "url": "https://github.com/asymmetrik/mongoose-query-service/issues"
+  },
+  "homepage": "https://github.com/asymmetrik/mongoose-query-service#readme",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "mongoose"
+  ]
 }
