@@ -75,8 +75,6 @@ const pageable = (schema) => {
 			sort.score = { $meta: 'textScore' };
 		}
 
-		console.log(`Options: ${JSON.stringify(options)}`);
-
 		let countPromise = this.count(query),
 			searchPromise = this.find(query, projection, options).sort(sort);
 
