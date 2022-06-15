@@ -68,3 +68,4 @@ tmp/
 
 /reports
 /coverage
+/.nyc_output

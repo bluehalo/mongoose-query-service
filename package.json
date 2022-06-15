@@ -1,10 +1,10 @@
 {
 	"name": "@asymmetrik/mongoose-query-service",
 	"description": "NPM module to provide shareable services and plugins for Mongoose models",
-	"version": "0.2.0",
+	"version": "1.0.0",
 
 	"author": "Asymmetrik, Ltd.",
-	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",
+	"copyright": "Copyright Asymmetrik, Ltd. 2007-2022 - All Rights Reserved.",
 	"license": "MIT",
 
 	"repository": {
@@ -13,14 +13,13 @@
 	},
 
 	"engines": {
-		"node": "6.9",
-		"npm": "3.3.10"
+		"node": "16",
+		"npm": "8"
 	},
 
 	"scripts": {
-		"test": "gulp test-ci",
-		"dev": "gulp dev",
-		"dev-test": "gulp dev-test"
+		"lint": "eslint --fix",
+		"test": "nyc --reporter=cobertura --reporter=lcov --reporter=text-summary mocha"
 	},
 
 	"dependencies": {
@@ -28,26 +27,15 @@
 	},
 
 	"peerDependencies": {
-		"mongoose": "4.x"
+		"mongoose": "5.x"
 	},
 
 	"devDependencies": {
-
-		"mongoose": "4.x",
-
-		"mocha": "3.2",
-		"should": "11.1",
-
-		"gulp": "3.9",
-		"gulp-coverage": "0.3",
-		"gulp-eslint": "3.0",
-		"gulp-istanbul": "1.1",
-		"gulp-load-plugins": "1.4",
-		"gulp-mocha": "3.0",
-		"gulp-util": "3.0",
-		"gulp-watch": "4.3",
-		"run-sequence": "1.2",
-		"yargs": "6.6"
-
+		"eslint": "8.17.0",
+		"mongoose": "5.x",
+		"mocha": "10.0.0",
+		"nyc": "15.1.0",
+		"should": "13.2.3",
+		"yargs": "17.5.1"
 	}
 }

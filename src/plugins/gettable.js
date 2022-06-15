@@ -13,7 +13,6 @@
  * - sorting (default: {})
  * - page (default: 0)
  * - limit (optional)
- * - maxScan (optional)
  */
 const gettable = (schema) => {
 
